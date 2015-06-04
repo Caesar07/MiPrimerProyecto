@@ -1,0 +1,131 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+document.write("<script type='text/javascript' src='algoritmo.js'></script>");
+document.write("<script type='text/javascript' src='proceso.js'></script>");
+document.write("<script type='text/javascript' src='js/Concurrent.Thread.js'></script>");
+document.write("<script type='text/javascript' src='colas.js'></script>");
+
+var sjf = function(numero){
+this.__proto__ = algoritmo;
+algoritmo.inicializar(numero,true);
+//algoritmo.apply(this,arguments);
+var numerocpu = numero;
+var i = 0;
+var procesos = []; // lista que poseera todos los procesos gestionados por la cpu
+var cantidadprocesos = 0;
+var estados = [];// lista en donde estaran todas las colas que usara la cpu
+//nuemero al que pertenece la cpu
+    for (var i =0; i<4;i++) {//0 para critico, 1 para listo, 2 para suspendido, 3 para bloquedado
+        estados[i]= new cola(); //
+    }
+    
+ this.getalogirtmoheredar = function(){
+     return algoritmo;
+ };
+ this.utilizarhilo=function(){
+     algoritmo.setnumerocpuausar(numerocpu);
+    var listacritica = estados[0];
+    var listalisto = estados[1];
+    var listasuspendido = estados[2];
+    var listabloqueado = estados[3];
+    //primero debe actualizar los quantums de los procesos
+    //revisar Si lista Critico esta disponible o no
+    if (listacritica.getcantidadelementos()===0){
+        if (listalisto.getcantidadelementos()!==0){//ingreso proceso a critico
+            if (algoritmo.revisarrecursosdisponibless(listalisto.getelementoprimerocola())) {//revision disponibilidad de recursos
+                var procesoacritico = listalisto.quitarelemento();
+                algoritmo.utilizarrecursosdisponibless(procesoacritico);
+                this.agregarobjeto(procesoacritico,0);
+                algoritmo.ingresarprocesoentabla(0,procesoacritico);
+                algoritmo.eliminarfilatabla(1,procesoacritico.getidentificador());
+                document.getElementById("tiempoprocesos"+(numerocpu)).innerHTML =("entregando critico "+ i);
+            }
+            else{//no hay recursos disponibles
+                //metodos necesaios para trasladar proceso de una cola a otra
+                var procesoabloqueado = listalisto.quitarelemento();
+                this.agregarobjeto(procesoabloqueado,3);
+                algoritmo.ingresarprocesoentabla(3,procesoabloqueado);
+                algoritmo.eliminarfilatabla(1,procesoabloqueado.getidentificador());
+                
+                document.getElementById("tiempoprocesos"+(numerocpu)).innerHTML =("falta de recursos "+ i);
+            }
+        }
+        else{
+            document.getElementById("tiempoprocesos"+(numerocpu)).innerHTML =( "procesador libre"+ i);
+        }
+    }
+    else {//reduzco tiempo en critico
+        var elementoprocesando = listacritica.getelementoprimerocola();
+        if (elementoprocesando.gettiempouso()===0){//proceso a terminado
+            var procesoterminado = listacritica.quitarelemento();
+            algoritmo.eliminarfilatabla(0,procesoterminado.getidentificador());
+            algoritmo.liberarrecursosdeproceso(procesoterminado);
+        }
+        else{
+            //cambio logico
+            elementoprocesando = listacritica.quitarelemento();
+            elementoprocesando.reducirtiempouso();
+            listacritica.agregarelemento(elementoprocesando);
+            //cambio fisico
+            algoritmo.actualizarfila(elementoprocesando,0);
+        document.getElementById("tiempoprocesos"+(numerocpu)).innerHTML =( "procesando cpu #"+numerocpu+
+                    " valores "+ i);
+        }
+    }
+    
+    // revisar si cola bloqueado esta ocupado para ver si se liberan procesos o no
+    if (listabloqueado.getcantidadelementos()!==0){
+        if (algoritmo.revisarrecursosdisponibless(listabloqueado.getelementoprimerocola())) {//revision disponibilidad de recursos
+            var procesoalisto = listabloqueado.quitarelemento();
+            this.agregarobjeto(procesoalisto,1);
+            algoritmo.ingresarprocesoentabla(1,procesoalisto);
+            algoritmo.eliminarfilatabla(3,procesoalisto.getidentificador());
+        }
+        else{
+            var procesoabloqueado = listabloqueado.quitarelemento();
+            algoritmo.eliminarfilatabla(3,procesoabloqueado.getidentificador());
+            this.agregarobjeto(procesoabloqueado,3);
+            algoritmo.ingresarprocesoentabla(3,procesoabloqueado);
+        }
+    }
+    
+        this.actualizarestados(listacritica,listalisto,listasuspendido,listabloqueado);
+        i+=1;
+ };
+ 
+ 
+ this.actualizarestados = function(listacritica,listalisto,listasuspendido,listabloqueado){
+    estados[0] = listacritica;
+    estados[1] = listalisto;
+    estados[2] = listasuspendido;
+    estados[3] = listabloqueado;
+ };
+ // Funcion llamada por jquery de interfaz para registrar nuevo recursp
+this.ingresarproceso= function(identificador,nombreproceso,tiempoproceso,recursoconsumo,
+cantidadconsumo){
+    var nuevoproceso = new proceso(identificador,nombreproceso,tiempoproceso,recursoconsumo,
+cantidadconsumo);
+    procesos[cantidadprocesos] = nuevoproceso;
+    cantidadprocesos++;
+    //Se asume que todo recurso nueo entra en cola de listo
+    this.agregarobjeto(nuevoproceso,1);
+    algoritmo.ingresarprocesoentabla(1,nuevoproceso);
+    //alert("en abstracto bien "+nuevoproceso.getnombre()+", "+nuevoproceso.gettiempouso()+", "+nuevoproceso.getrecursosnecesitados()
+    //        +", "+nuevoproceso.getcantidadrecursos());                        
+};
+
+
+//Funcion usada para agregar a un proceso a cualqueir cola
+this.agregarobjeto = function(elemento, lista){
+    estados[lista].agregarelemento(elemento);
+};
+
+ //roundrobin.recibirproceso=function(nombr,tiempous,recursosnecesitad,cantidadrecurso){
+ //    var nuevoproceso = new proceso(nombr,tiempous,recursosnecesitad,cantidadrecurso);
+ //    roundrobin.procesos[roundrobin.cantidadprocesos]=nuevoproceso;
+ //    roundrobin.cantidadprocesos++;
+ //};
+ };

@@ -1,0 +1,172 @@
+body {
+	color: #000;
+	font-size: 20px;
+	background-color: #999;
+	background-image: url(cont.jpg);
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	font-family: Arial, Helvetica, sans-serif;
+}
+h1{
+	text-shadow:5px 5px 5px white;
+	font-size: 38px;
+	padding-left: 15%;
+	position: absolute;
+	text-align: match-parent;
+	position: absolute;
+	color: black;
+	left: 310px;
+	top: 60px;
+}
+#tablabalance {
+	background-color: #7E84B4;
+	background-position: center center;
+	color: #000;
+	list-style-type: square;
+	height: auto;
+	width: auto;
+	visibility: inherit;
+	left: auto;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	clip: rect(auto,auto,auto,auto);
+	padding: 10px;
+}
+#dentroformulario {
+	font-family: "Comic Sans MS", cursive;
+	-moz-border-radius-topleft: 150px;
+	-moz-border-radius-topright:150px;
+	-moz-border-radius-bottomleft:150px;
+	-moz-border-radius-bottomright:150px;
+	-webkit-border-top-left-radius:150px;
+	-webkit-border-top-right-radius:150px;
+	-webkit-border-bottom-left-radius:150px;
+	-webkit-border-bottom-right-radius:150px;
+	border-top-left-radius:150px;
+	border-top-right-radius:150px;
+	border-bottom-left-radius:150px;
+	border-bottom-right-radius:150px;
+	background-color: #00C;
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+	border-top-color: #096;
+	border-right-color: #096;
+	border-bottom-color: #096;
+	border-left-color: #096;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: ridge;
+	border-left-style: double;
+	height: auto;
+	width: 500px;
+	right: 50%;
+	top: 10px;	
+}
+img{
+	padding-left: auto;
+	position: absolute;
+	left: 75px;
+	top: 6px;
+	width: 156px;
+	height: 134px;
+}
+a{
+    color: white;
+    padding-top: 2%;
+    padding-left: 5%;
+}
+#formulario {
+        position:  relative;
+	padding-top: 0%;
+	padding-left: 50%;
+}
+
+p {
+	text-align: center;
+}
+
+h2{
+    padding-top: 15%;
+    padding-left: 5%;
+    text-shadow:5px 5px 5px black;
+    font-size: 20px;
+    color: white;
+}
+#subirxml{
+	height: auto;
+	width: auto;
+	right: 50%;
+	top: 50%;
+	position: absolute;
+}
+#datosclientenuevo{
+	height: auto;
+	width: auto;
+	right: 50%;
+	top: 50%;
+	position: absolute;
+}
+#datosactualizar{
+	height: auto;
+	width: auto;
+	right: 50%;
+	top: 50%;
+	position: absolute;
+}
+#posiciontabla{
+	right: auto;
+	position: absolute;
+}
+#datosContacto{
+	bottom: 1%;
+	font-family: "Comic Sans MS", cursive;
+	font-size: 24px;
+	color: #999;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+	border-top-color: #666;
+	border-right-color: #666;
+	border-bottom-color: #666;
+	top: 65%;
+}
+#mision{
+	bottom: 1%;
+	left:	1%;
+	right: 67%;
+	top: auto;
+	position: absolute;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+	color: #999;
+}
+#vision{
+	bottom: 1%;
+	left:	34%;
+	right: 34%;
+	top: auto;
+	position: absolute;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+	color: #999;
+}
+#contacto{
+	bottom: 1%;
+	left:	67%;
+	right: 1%;
+	top: auto;
+	position: absolute;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+	color: #999;
+}

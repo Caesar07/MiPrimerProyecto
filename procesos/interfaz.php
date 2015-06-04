@@ -387,7 +387,7 @@
       </div>
 
       <div class="modal-footer">
-        <p><input type="button" id="btncamboproceso" value= "Siguiente"  class="btn btn-success" /></p>
+        <p><input type="button" id="btncamboproceso" value= "Siguiente"  class="btn btn-success" data-dismiss="modal"/></p>
       </div>
     </div>
     </div>
